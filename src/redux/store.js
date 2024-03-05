@@ -3,25 +3,6 @@ import { contactsReducer } from "./contactsSlice";
 import { filterReducer } from "./filterSlice";
 
 
-import logger from "redux-logger";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const store = configureStore({
     reducer: {

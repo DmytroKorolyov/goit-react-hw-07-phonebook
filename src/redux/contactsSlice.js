@@ -1,5 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { fetchDataThunk } from './operation';
+import { addContactThunk, deleteContactThunk, fetchDataThunk } from './operation';
 
 const initialState = {
   contacts: {
@@ -59,6 +59,12 @@ const contactSlice = createSlice({
       state.contacts.error = payload
         state.contacts.isLoading = false;
 
+      })
+      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
+      state.contacts.items = state.contacts.items.filter(item => item.id != payload)
+      })
+      .addCase(addContactThunk.fulfilled, (state, { payload }) => {
+      state.contacts.items.push(payload)
     })
   },
 

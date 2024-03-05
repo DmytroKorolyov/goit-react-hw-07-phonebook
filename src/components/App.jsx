@@ -35,7 +35,7 @@ const App = () => {
     dispatch(deleteContact(id));
   };
 
-  const filteredContacts = contacts.filter((contact) =>
+  const filteredContacts = contacts.items.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -52,6 +52,80 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { addContact, deleteContact, selectContacts } from '../redux/contactsSlice';
+// import { filterContacts, selectFilter } from '../redux/filterSlice';
+
+// import ContactForm from './ContactForm/ContactForm';
+// import Filter from './Filter/Filter';
+// import ContactList from './ContactList/ContactList'
+
+// const App = () => {
+//   const contacts = useSelector(selectContacts);
+//   const filter = useSelector(selectFilter);
+//   const dispatch = useDispatch();
+
+//   const handleSearchChange = (e) => {
+//     const value = e.target.value.toLowerCase().trim();
+//     dispatch(filterContacts(value));
+//   };
+
+//   const handleAddContact = (name, number) => {
+//     const trimmedName = name.trim();
+//     const trimmedNumber = number.trim();
+//     const newContact = { name: trimmedName, number: trimmedNumber };
+
+//     const isContactExist = contacts.some((contact) => contact.name === trimmedName);
+//     if (isContactExist) {
+//       alert(`${trimmedName} is already in contacts`);
+//       return;
+//     }
+    
+//     dispatch(addContact(newContact));
+//   };
+
+//   const handleDeleteContact = (id) => {
+//     dispatch(deleteContact(id));
+//   };
+
+//   const filteredContacts = contacts.filter((contact) =>
+//     contact.name.toLowerCase().includes(filter.toLowerCase())
+//   );
+
+//   return (
+//     <div>
+//       <h1>Phonebook</h1>
+//       <ContactForm onAddContact={handleAddContact} />
+
+//       <h2>Contacts</h2>
+//       <Filter value={filter} onChange={handleSearchChange} />
+//       <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
+//     </div>
+//   );
+// };
+
+// export default App;
 
 
 
