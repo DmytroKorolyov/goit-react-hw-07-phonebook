@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, deleteContact, selectContacts } from '../redux/contactsSlice';
 import { filterContacts, selectFilter } from '../redux/filterSlice';
@@ -6,38 +6,50 @@ import { filterContacts, selectFilter } from '../redux/filterSlice';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList'
+import { addContactThunk, deleteContactThunk, fetchContactsThunk } from '../redux/operation';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchContactsThunk());
+  }, [dispatch]);
+
+
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase().trim();
     dispatch(filterContacts(value));
   };
 
-  const handleAddContact = (name, number) => {
-    const trimmedName = name.trim();
-    const trimmedNumber = number.trim();
-    const newContact = { name: trimmedName, number: trimmedNumber };
-
-    const isContactExist = contacts.some((contact) => contact.name === trimmedName);
+  const handleAddContact = (name, phone) => {
+    const newContact = {
+      name: name.trim(),
+      phone: phone.trim(),
+    };
+    const isContactExist = contacts.some(contact => contact.name === name);
     if (isContactExist) {
-      alert(`${trimmedName} is already in contacts`);
+      alert(`${name} is already in contacts`);
       return;
     }
-    
-    dispatch(addContact(newContact));
+    dispatch(addContactThunk(newContact));
   };
 
-  const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-  };
 
-  const filteredContacts = contacts.items.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  // const handleDeleteContact = (id) => {
+  //   dispatch(deleteContactThunk(id));
+  // };
+
+  // const filteredContacts = contacts.filter((contact) =>
+  //   contact.name.toLowerCase().includes(filter.toLowerCase())
+  // );
+
+const filteredContacts = filter
+    ? contacts.filter(item => item.name.toLowerCase().includes(filter))
+    : contacts;
+
+
 
   return (
     <div>
@@ -46,12 +58,89 @@ const App = () => {
 
       <h2>Contacts</h2>
       <Filter value={filter} onChange={handleSearchChange} />
-      <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
+      <ContactList contacts={filteredContacts} />
     </div>
   );
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { addContact, deleteContact, selectContacts } from '../redux/contactsSlice';
+// import { filterContacts, selectFilter } from '../redux/filterSlice';
+
+// import ContactForm from './ContactForm/ContactForm';
+// import Filter from './Filter/Filter';
+// import ContactList from './ContactList/ContactList'
+// import { addContactThunk, deleteContactThunk, fetchDataThunk } from '../redux/operation';
+
+// const App = () => {
+//   const contacts = useSelector(selectContacts);
+//   const filter = useSelector(selectFilter);
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+//     dispatch(fetchDataThunk());
+//   }, [dispatch]);
+
+
+//   const handleSearchChange = (e) => {
+//     const value = e.target.value.toLowerCase().trim();
+//     dispatch(fetchDataThunk(value));
+//   };
+
+//   const handleAddContact = (name, phone) => {
+//     const newContact = {
+//       name: name.trim(),
+//       phone: phone.trim(),
+//     };
+//     const isContactExist = contacts.some(contact => contact.name === name);
+//     if (isContactExist) {
+//       alert(`${name} is already in contacts`);
+//       return;
+//     }
+//     dispatch(addContactThunk(newContact));
+//   };
+
+
+//   const handleDeleteContact = (id) => {
+//     dispatch(deleteContactThunk(id));
+//   };
+
+//   const filteredContacts = contacts.items.filter((contact) =>
+//     contact.name.toLowerCase().includes(filter.toLowerCase())
+//   );
+
+//   return (
+//     <div>
+//       <h1>Phonebook</h1>
+//       <ContactForm onAddContact={handleAddContact} />
+
+//       <h2>Contacts</h2>
+//       <Filter value={filter} onChange={handleSearchChange} />
+//       <ContactList contacts={filteredContacts} onDeleteContact={handleDeleteContact} />
+//     </div>
+//   );
+// };
+
+// export default App;
 
 
 
