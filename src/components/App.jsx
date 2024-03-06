@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact, selectContacts } from '../redux/contactsSlice';
+import { selectContacts } from '../redux/contactsSlice';
 import { filterContacts, selectFilter } from '../redux/filterSlice';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList'
-import { addContactThunk, deleteContactThunk, fetchContactsThunk } from '../redux/operation';
+import { addContactThunk, fetchContactsThunk } from '../redux/operation';
 
 const App = () => {
   const contacts = useSelector(selectContacts);

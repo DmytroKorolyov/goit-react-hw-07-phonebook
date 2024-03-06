@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContactThunk } from '../../redux/operation';
+// import { useDispatch } from 'react-redux';
 
 const ContactForm = ({onAddContact}) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;

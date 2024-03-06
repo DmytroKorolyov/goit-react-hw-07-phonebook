@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteContact, fetchIsDone, isLoading } from "./contactsSlice";
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://65e5d6dcd7f0758a76e78ec0.mockapi.io/'
@@ -52,7 +51,7 @@ export const deleteContactThunk = createAsyncThunk(
 
 
 
-// мой код
+
 
 // import { createAsyncThunk } from "@reduxjs/toolkit";
 // import { deleteContact, fetchIsDone, isLoading } from "./contactsSlice";
